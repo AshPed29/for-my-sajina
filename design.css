@@ -1,0 +1,9 @@
+.video-caption {
+    margin-top: 8px;
+    background-color: #f0f0f0;   /* light background like your photo fallback */
+    color: #764ba2;              /* same purple tone */
+    padding: 10px;
+    text-align: center;
+    font-style: italic;
+    border-radius: 4px;
+}

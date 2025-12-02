@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Made More Visible */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 10px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            margin: 18px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.4);
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .dot::after {
+            content: attr(data-title);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .dot:hover::after {
+            opacity: 1;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: relative;
+            display: none;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: flex;
+        }
+
+        /* Apology Container - Special Styling */
+        #section0 {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .apology-container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 60px 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            position: relative;
+            border: 3px solid #ff6b6b;
+            animation: pulse 2s infinite;
+            overflow: hidden;
+        }
+
+        .apology-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        .tear-drop {
+            position: absolute;
+            font-size: 3em;
+            animation: tearFall 3s infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 150, 255, 0.5));
+        }
+
+        .tear-1 { top: -40px; left: 20%; }
+        .tear-2 { top: -40px; right: 20%; }
+
+        /* Original Containers */
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #764ba2;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .apology-title {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbowText 3s ease infinite;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 40px;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .message {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .heartbeat {
+            font-size: 2em;
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease infinite;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        /* Special Message Button */
+        .special-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            color: black;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 40px auto;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .special-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .special-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .special-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(118, 75, 162, 0.95));
+            color: white;
+            padding: 15px 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+
+        /* Video Item */
+        .video-item {
+            grid-column: span 2;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .video-item video {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-caption {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        /* Audio Player */
+        .audio-player {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
+        }
+
+        .audio-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #ffd93d;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        /* Quote Cards */
+        .quote-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #764ba2;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateX(5px);
+        }
+
+        .quote-text {
+            font-size: 1.2em;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .quote-date {
+            color: #999;
+            font-size: 0.9em;
+            text-align: right;
+        }
+
+        /* Reason Cards */
+        .reason-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(118, 75, 162, 0.4);
+        }
+
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .reason-card:hover::before {
+            left: 100%;
+        }
+
+        .reason-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button */
+        .button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.3);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(245, 87, 108, 0.4);
+        }
+
+        /* Navigation Arrows */
+        .nav-arrows {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 10px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-arrow {
+            background: rgba(255, 255, 255, 0.7);
+            color: #764ba2;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hearts Animation */
+        .hearts {
+            position: fixed;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s infinite ease-in;
+            opacity: 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes tearFall {
+            0% {
+                transform: translateY(-50px) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        @keyframes rainbowText {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        @keyframes floatHint {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .container, .apology-container {
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .video-item {
+                grid-column: span 1;
+            }
+            .nav-dots, .nav-arrows {
+                display: none;
+            }
+            .special-btn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Navigation Arrows -->
+    <div class="nav-arrows">
+        <button class="nav-arrow prev" onclick="goToPrevSection()">↑</button>
+        <button class="nav-arrow next" onclick="goToNextSection()">↓</button>
+    </div>
+    
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="dot active" data-section="0" data-title="Apology"></div>
+        <div class="dot" data-section="1" data-title="Photos"></div>
+        <div class="dot" data-section="2" data-title="Voice & Quotes"></div>
+        <div class="dot" data-section="3" data-title="Why I Love You"></div>
+    </div>
+
+    <!-- Section 0: Apology Landing Page -->
+    <section id="section0" class="section active">
+        <div class="apology-container">
+            <div class="tear-drop tear-1">💧</div>
+            <div class="tear-drop tear-2">💧</div>
+            
+            <h1 class="apology-title">My Heart is Sorry</h1>
+            <p class="subtitle">Every beat misses you</p>
+            
+            <div class="message">
+                <p>My dearest,</p>
+                <br>
+                <p>I know I've hurt you, and for that, I'm truly sorry <span class="heartbeat">💔</span></p>
+                <p>Your anger is valid, and I respect every feeling you have. I never meant to cause you pain - seeing you upset breaks my heart more than you can imagine.</p>
+                <br>
+                <p>You are <span class="heartbeat">❤️</span> my baby, my sugary candy, my heartbeat, my cutie pie, my moon pie, my universe, my chocolate candy, the energy in my food, the oxygen in my breath, the blood in my body, the neurons in my brain <span class="heartbeat">✨</span></p>
+                <br>
+                <p>Most importantly, you're <strong>MY GIRL</strong>, the love of my life. I am your man, and I take full responsibility for my mistakes. I want to learn, grow, and be better - for you, with you, because of you.</p>
+                <br>
+                <p>This distance already pains me enough -Every morning I wake up with your name. Your are blessed one 'Sajina' for me</p>
+            </div>
+
+            <button class="special-btn" onclick="showSpecialMessage()">
+                💌 Read My Heart's Message
+            </button>
+            
+            <button class="button" onclick="goToSection(1)">
+                See Our Memories →
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 1: Photos -->
+    <section id="section1" class="section">
+        <div class="container">
+            <h1>My Gallery filled with her snapshots</h1>
+            <p class="subtitle">These canvases keep me going</p>
+            
+            <div class="photo-grid">
+                <div class="photo-item">
+                    <img src="Cutie.jpg" alt="My Gallery filled with her snapshots" onerror="this.style.backgroundColor='#f0f0f0'; this.innerHTML='<div style=\'color:#764ba2; padding:20px;\'>Photo 1: Your Smile</div>'">
+                    <div class="photo-caption">The one that lights up my world</div>
+                </div>
+                <div class="photo-item">
+                    <img src="Bebuuuu.jpg" alt="Another favorite" onerror="this.style.backgroundColor='#f0f0f0'; this.innerHTML='<div style=\'color:#764ba2; padding:20px;\'>Photo 2: Our Memory</div>'">
+                    <div class="photo-caption">Little her, still cute on my phone screen.</div>
+                </div>
+                <div class="photo-item">
+                    <img src="Jannuuu.jpg" alt="Special moment" onerror="this.style.backgroundColor='#f0f0f0'; this.innerHTML='<div style=\'color:#764ba2; padding:20px;\'>Photo 3: Just You</div>'">
+                    <div class="photo-caption">My world, I keep her everywhere</div>
+                </div>
+                <div class="photo-item">
+                    <img src="Love at first site.jpg" alt="Special moment" onerror="this.style.backgroundColor='#f0f0f0'; this.innerHTML='<div style=\'color:#764ba2; padding:20px;\'>Photo 4: Love at First Sight</div>'">
+                    <div class="photo-caption">Oh god! this one, when I saw this one I made my mind she is the one. Cute, Innocent, Childish, this photo has aura.</div>
+                </div>
+                <div class="video-item">
+                    <video controls
+                        onerror="this.style.backgroundColor='#f0f0f0'; this.outerHTML='<div style=\'color:#764ba2; padding:20px; text-align:center;\'>Video 1: Her First Sent One</div>'">
+                        <source src="Her first sent one.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-caption">
+                        This was the very first video she sent me, this is historic in our relationship. I don't know why but I still feel she just made this for me even before we knew each other.
+                    </div>
+                </div>
+            </div>
+
+            <div class="message">
+                <p>These pictures of her are my go to place when I miss her and when she is sleeping. 
+                    <br>Isn't she the best one that I have?
+                    <br>Of course she is !!!
+                    <br>I love you so much my baby.
+                </p>
+            </div>
+
+            <button class="button" onclick="goToSection(0)">← Back to Apology</button>
+            <button class="button" onclick="goToSection(2)">Next →</button>
+        </div>
+    </section>
+
+    <!-- Section 2: Voice Messages & Quotes -->
+    <section id="section2" class="section">
+        <div class="container">
+            <h1>Your Voice, Your Words</h1>
+            <p class="subtitle">The things I replay in my mind</p>
+
+            <div class="audio-player">
+                <div class="audio-title">My therapy - "Your Voice" Note</div>
+                <p><em>This is my favorite way to start the day</em></p>
+                <audio controls>
+                    <source src="audio.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-text">"You said that we can't wait any longer to marry but first we have to earn enough to make us happy and our kids happy and it made me realize how ahead thinking you are..."</div>
+                <div class="quote-date">Remember when you said this?</div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-text">"And I always remember your words everyone has their time and we have our time..."</div>
+                <div class="quote-date">I think about this often</div>
+            </div>
+
+            <div class="message">
+                <p>Her voice and her words always motivate me. When I listen to your voice I only wish to go to you and just listen to your voice. 
+                    I would happily give up everything just to listen to you constantly.</p>
+            </div>
+
+            <button class="button" onclick="goToSection(1)">← Back to Photos</button>
+            <button class="button" onclick="goToSection(3)">Next →</button>
+        </div>
+    </section>
+
+    <!-- Section 3: Reasons Why -->
+    <section id="section3" class="section">
+        <div class="container">
+            <h1>Why I Love You</h1>
+            <p class="subtitle">Just a few of the infinite reasons</p>
+
+            <div class="reasons">
+                <div class="reason-card">
+                    <div class="reason-number">💕</div>
+                    <p><strong>Her Presence</strong> - She lights up my world, even through a screen. When she is with me, I feel I can do anything.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">✨</div>
+                    <p><strong>Her Motivation</strong> - She tells me how to be a better person, better boyfriend, better future dad.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">🌟</div>
+                    <p><strong>Her Strength</strong> - Oh my goodness, honey you are the strongest lady that I know, You have been through a lot still you never stop pushing yourself. I am so glad I can help you with your journey.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">💖</div>
+                    <p><strong>Your Charisma</strong> - You just have a magic that captures my attention for you, there is not a single second I stop thinking about you. Your eyes, your hair, your body, your tummy even without touching I can sense them.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">🌹</div>
+                    <p><strong>You Are My Future</strong> - I want to make you mine, I want to marry you and give all the happiness, I want to be father of your children. I want to see smile on that beautiful face and I want to be reason for that.</p>
+                </div>
+            </div>
+
+            <div class="message">
+                <p>And these are just the beginning. Every day I discover new reasons to love you more.</p>
+            </div>
+
+            <button class="button" onclick="goToSection(2)">← Back</button>
+            <button class="button" onclick="showFinalPromise()">A Final Promise ❤️</button>
+            <button class="button" onclick="goToSection(0)">Back to Apology</button>
+        </div>
+    </section>
+
+    <script>
+        // Hearts animation
+        function createHeart() {
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💞', '💘'];
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 800);
+
+        // Section navigation
+        function goToSection(index) {
+            const sections = document.querySelectorAll('.section');
+            const dots = document.querySelectorAll('.dot');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            sections[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            // Smooth scroll to section
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+
+        // Navigation arrows functions
+        function goToNextSection() {
+            const currentSection = Array.from(document.querySelectorAll('.section')).findIndex(s => s.classList.contains('active'));
+            const next = Math.min(currentSection + 1, 3);
+            goToSection(next);
+        }
+
+        function goToPrevSection() {
+            const currentSection = Array.from(document.querySelectorAll('.section')).findIndex(s => s.classList.contains('active'));
+            const prev = Math.max(currentSection - 1, 0);
+            goToSection(prev);
+        }
+
+        // Dot click navigation
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.addEventListener('click', () => goToSection(index));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentSection = Array.from(document.querySelectorAll('.section')).findIndex(s => s.classList.contains('active'));
+            
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                goToNextSection();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                goToPrevSection();
+            }
+        });
+
+        // Special Messages for Apology Page
+        const specialMessages = [
+            {
+                title: "Your Worth 💎",
+                message: "You deserve all the love that I gave you. You deserve endless patience, constant understanding, and unconditional love. I'm committed to becoming the man who gives you all that and more.",
+                emoji: "💎"
+            },
+            {
+                title: "Our Promise Ring 🤝",
+                message: "Even through screens and distance, I've worn our promise in my heart. This isn't just an 'I'm sorry' - it's an 'I'll do better.' It's a 'You're worth changing for.' It's a 'I choose us, every single day.'",
+                emoji: "🤝"
+            },
+            {
+                title: "The Space Between Us 🌌",
+                message: "This physical distance is hard enough. I never meant to create emotional distance too. I'm here, reaching across every mile, every misunderstanding, with nothing but love and regret for hurting you.",
+                emoji: "🌌"
+            }
+        ];
+
+        function showSpecialMessage() {
+            const randomMsg = specialMessages[Math.floor(Math.random() * specialMessages.length)];
+            
+            // Create a beautiful modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.85);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    padding: 40px;
+                    border-radius: 20px;
+                    max-width: 500px;
+                    margin: 20px;
+                    text-align: center;
+                    animation: fadeIn 0.5s ease;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                    border: 2px solid #ffd93d;
+                    position: relative;
+                ">
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 1.5em;
+                        cursor: pointer;
+                    ">×</button>
+                    
+                    <div style="font-size: 4em; margin-bottom: 20px;">${randomMsg.emoji}</div>
+                    <h2 style="color: white; margin-bottom: 20px; font-size: 1.8em;">${randomMsg.title}</h2>
+                    <p style="color: white; font-size: 1.1em; line-height: 1.6; margin-bottom: 30px;">${randomMsg.message}</p>
+                    <p style="color: #ffd93d; font-style: italic; margin-top: 20px;">With all my love,<br>Your Man ❤️</p>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Add extra hearts
+            for(let i = 0; i < 20; i++) {
+                setTimeout(() => createHeart(), i * 100);
+            }
+            
+            // Close on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+
+        function showFinalPromise() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                    padding: 50px;
+                    border-radius: 25px;
+                    max-width: 600px;
+                    margin: 20px;
+                    text-align: center;
+                    color: white;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+                ">
+                    <h1 style="font-size: 2.5em; margin-bottom: 30px;">My Final Promise 🌟</h1>
+                    <div style="font-size: 1.2em; line-height: 1.8; margin-bottom: 30px;">
+                        <p>I promise to be better - not just today, but every day.</p>
+                        <p>I promise to listen more, to understand deeper, to love harder.</p>
+                        <p>I promise to never take you for granted, to cherish every moment,</p>
+                        <p>and to build a future where your happiness is my priority.</p>
+                        <br>
+                        <p>This distance is temporary,</p>
+                        <p>but my love for you is forever.</p>
+                        <p>Thank you for being you.</p>
+                        <p>Thank you for loving me.</p>
+                        <br>
+                        <p style="font-size: 1.5em; color: #ffd93d;">I love you endlessly. 💕</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: white;
+                        color: #f5576c;
+                        border: none;
+                        padding: 15px 40px;
+                        border-radius: 50px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 1.1em;
+                        transition: transform 0.3s;
+                    " onmouseover="this.style.transform='scale(1.05)'" 
+                      onmouseout="this.style.transform='scale(1)'">
+                        Forever Yours ❤️
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Add celebration hearts
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => createHeart(), i * 50);
+            }
+            
+            // Close on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+
+        // Click effect on reason cards
+        document.querySelectorAll('.reason-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                setTimeout(() => {
+                    this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 300);
+            });
+        });
+
+        // Photo click enlargement
+        document.querySelectorAll('.photo-item').forEach(photo => {
+            photo.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img.src && !img.src.includes('#')) {
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.95);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                        cursor: pointer;
+                    `;
+                    modal.innerHTML = `
+                        <img src="${img.src}" style="max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 40px rgba(255,255,255,0.3);">
+                    `;
+                    modal.addEventListener('click', () => modal.remove());
+                    document.body.appendChild(modal);
+                }
+            });
+        });
+
+        // Touch swipe navigation for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchStartY - touchEndY;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0) {
+                    // Swipe up - go to next section
+                    goToNextSection();
+                } else {
+                    // Swipe down - go to previous section
+                    goToPrevSection();
+                }
+            }
+        }
+
+        // Progress bar for navigation
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 1000;
+        `;
+        
+        const progressFill = document.createElement('div');
+        progressFill.style.cssText = `
+            height: 100%;
+            width: 25%;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            transition: width 0.5s ease;
+            border-radius: 0 2px 2px 0;
+        `;
+        
+        progressBar.appendChild(progressFill);
+        document.body.appendChild(progressBar);
+        
+        // Update progress bar when navigating
+        function updateProgressBar() {
+            const currentSection = Array.from(document.querySelectorAll('.section')).findIndex(s => s.classList.contains('active'));
+            const progress = ((currentSection + 1) / 4) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+        
+        // Initial progress bar update
+        updateProgressBar();
+
+        // Floating navigation hint
+        const navHint = document.createElement('div');
+        navHint.style.cssText = `
+            position: fixed;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 15px;
+            color: #764ba2;
+            font-size: 0.9em;
+            z-index: 999;
+            animation: floatHint 2s ease-in-out infinite;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        `;
+        navHint.innerHTML = 'Use ↑↓ arrows or dots →';
+        document.body.appendChild(navHint);
+        
+        // Show hint after 5 seconds on first section
+        setTimeout(() => {
+            if (document.getElementById('section0').classList.contains('active')) {
+                navHint.style.display = 'block';
+                setTimeout(() => {
+                    navHint.style.display = 'none';
+                }, 5000);
+            }
+        }, 5000);
+        
+        // Auto-advance for first-time visitors
+        let visited = localStorage.getItem('visited');
+        if (!visited) {
+            setTimeout(() => {
+                // Show a gentle prompt after 10 seconds on apology page
+                if (document.getElementById('section0').classList.contains('active')) {
+                    const prompt = document.createElement('div');
+                    prompt.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+                        padding: 15px 25px;
+                        border-radius: 25px;
+                        color: black;
+                        font-weight: bold;
+                        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+                        z-index: 1000;
+                        cursor: pointer;
+                        animation: fadeInUp 0.5s ease;
+                        text-align: center;
+                    `;
+                    prompt.innerHTML = '👇 Swipe or click to continue our love story 👇';
+                    prompt.addEventListener('click', () => {
+                        prompt.remove();
+                        goToSection(1);
+                    });
+                    document.body.appendChild(prompt);
+                    
+                    setTimeout(() => prompt.remove(), 10000);
+                }
+            }, 10000);
+            localStorage.setItem('visited', 'true');
+        }
+    </script>
+</body>
+</html>
